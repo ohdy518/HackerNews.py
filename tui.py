@@ -45,6 +45,17 @@ def sel(selector):
     console.print(f"\[BASIC INFO]\ntitle: [bold orange1]{result["title"]}[/]\n  url: {result['url']}\n   by: {result['by']}", style="orange3")
     console.line()
     console.print(f"\[CONTENT]\n[bold orange1]{result["text"] if "text" in result else "(empty)"}[/]", style="orange3")
+    console.line()
+    console.print(f"[orange3]\[{str(result["descendants"])} [/]COMMENT{"" if result["descendants"] == 0 else "S"}][bold orange1][/]", style="orange3")
+    console.print("[italic yellow]fetching comments...[/]", style="italic yellow", end="\r")
+
+    results = fetcher.comments(result["kids"])
+
+    console.print(" " * 30, end="\r")
+
+    for i in results:
+        console.print(f" - [orange1]{i["text"].replace("<p>", "")}[/][italic orange3] ...by {i["by"]}[/]", style="orange3")
+        console.line()
 
 def fetch_progress(now, total):
     console.print(" "*30, end="\r")

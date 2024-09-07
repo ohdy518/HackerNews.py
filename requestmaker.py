@@ -16,21 +16,11 @@ def top():
 
     except requests.RequestException as e:
         print(f"An error occurred: {e}")
-        return []
+        raise e
 
 def item(item_id):
-    """
-    Fetches the item details from Hacker News using the provided item ID.
-
-    Args:
-        item_id (int): The ID of the item to fetch.
-
-    Returns:
-        dict: The JSON data for the item, or an empty dictionary if an error occurs.
-    """
-    # Base URL for Hacker News items
-    base_url = "https://hacker-news.firebaseio.com/v0/item"
-    url = f"{base_url}/{item_id}.json"
+    URL = "https://hacker-news.firebaseio.com/v0/item"
+    url = f"{URL}/{item_id}.json"
 
     try:
         # Make a GET request to the URL
@@ -44,4 +34,7 @@ def item(item_id):
 
     except requests.RequestException as e:
         print(f"An error occurred: {e}")
-        return {}
+        raise e
+
+def comment(comment_id):
+    return item(comment_id)
